@@ -12,8 +12,8 @@ int main()
 {
 	PrintIntro();
 	
-	int limit = 5;
-	for (int count = 1; count <= limit; count++)
+	constexpr int NUMBER_OF_TURNS = 5;
+	for (int count = 1; count <= NUMBER_OF_TURNS; count++)
 	{
 		GetGuessAndPrintBack();
 		cout << endl;
