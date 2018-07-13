@@ -6,21 +6,18 @@ using namespace std;
 void PrintIntro();
 string GetGuessAndPrintBack();
 
-
 // the entry point for our application
 int main()
 {
 	PrintIntro();
 	
+	// loop for the number of turns asking for guesses
 	constexpr int NUMBER_OF_TURNS = 5;
 	for (int count = 1; count <= NUMBER_OF_TURNS; count++)
 	{
 		GetGuessAndPrintBack();
 		cout << endl;
 	}
-
-
-	cout << endl;
 	return 0;
 }
 
