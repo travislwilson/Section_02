@@ -11,8 +11,14 @@ string GetGuessAndPrintBack();
 int main()
 {
 	PrintIntro();
-	GetGuessAndPrintBack();
-	GetGuessAndPrintBack();
+	
+	int limit = 5;
+	for (int count = 1; count <= limit; count++)
+	{
+		GetGuessAndPrintBack();
+		cout << endl;
+	}
+
 
 	cout << endl;
 	return 0;
