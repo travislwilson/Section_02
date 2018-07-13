@@ -6,18 +6,15 @@ using namespace std;
 void PrintIntro();
 void PlayGame();
 string GetGuess();
-string RepeatGuess();
-
-// game varibles
-string Guess = "";
 
 // the entry point for our application
 int main()
 {
 	PrintIntro();
 	PlayGame();
-	return 0;
+	return 0; //exit application
 }
+
 
 // introduce the game
 void PrintIntro()
@@ -30,31 +27,26 @@ void PrintIntro()
 	return;
 }
 
-// play the game logic
+
 void PlayGame()
 {
 	// loop for the number of turns asking for guesses
 	constexpr int NUMBER_OF_TURNS = 5;
 	for (int count = 1; count <= NUMBER_OF_TURNS; count++)
 	{
-		GetGuess();
-		RepeatGuess();
+		string Guess = GetGuess();
+		cout << "Your guess was: " << Guess << endl;
 		cout << endl;
 	}
 }
 
+
 string GetGuess()
 {
 	// get guess from player
+	string Guess = "";
 	cout << "Enter your guess: ";
 	getline(cin, Guess);
 	return Guess;
 }
 
-string RepeatGuess()
-{
-	// repeat guess back to player
-	cout << "You enterd: " << Guess;
-	cout << endl;
-	return Guess;
-}
