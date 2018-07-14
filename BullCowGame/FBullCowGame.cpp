@@ -1,12 +1,14 @@
 #include "FBullCowGame.h"
 
-using int32 = int;
+using FString = std::string; // set Unreal Namespace for strings
+using int32 = int; // set Unreal Namespace for int
 
 FBullCowGame::FBullCowGame() { Reset(); }
 
 int32 FBullCowGame::GetMaxTries() const { return MyMaxTries; }
 int32 FBullCowGame::GetCurrentTry() const { return MyCurrentTry; }
 int32 FBullCowGame::GetHiddenWordLength() const { return MyHiddenWord.length(); }
+bool FBullCowGame::IsGameWon() const { return false; }
 
 void FBullCowGame::Reset()
 {
@@ -19,12 +21,28 @@ void FBullCowGame::Reset()
 	return;
 }
 
-bool FBullCowGame::IsGameWon() const { return false; }
-
-
-bool FBullCowGame::CheckGuessValidity(std::string) const
+EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 {
-	return false;
+	if (false) // if the guess isn't an isogram
+	{
+		return EGuessStatus::Not_Isogram;
+	}
+	else if (false)// if the guess isn't all lowcase
+	{
+		return EGuessStatus::Not_Lowcase;
+	} 
+	else if (Guess.length() != GetHiddenWordLength()) // if the guess length is wrong
+	{
+		return EGuessStatus::Wrong_Length;
+	}
+	else 
+	{
+		return EGuessStatus::OK;
+	}
+	
+		
+	// otherwise
+		// return OK
 }
 
 // receives a VALID guess, incriements turn, and returns count
