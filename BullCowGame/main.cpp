@@ -36,7 +36,7 @@ int main()
 void PrintIntro()
 {
 
-	std::cout << "Welcome to Bulls and Cows, a fun word game.\n";
+	std::cout << "\n\nWelcome to Bulls and Cows, a fun word game.\n";
 	std::cout << "Can you guess the " << BCGame.GetHiddenWordLength();
 	std::cout << " letter isogram I'm thinking of?\n\n";
 	return;
@@ -48,8 +48,9 @@ void PlayGame()
 	BCGame.Reset();
 	int32 MaxTries = BCGame.GetMaxTries();
 
-	// loop for the number of turns asking for guesses
-	for (int32 count = 1; count <= MaxTries; count++) // TODO change from FOR to WHILE loop
+	// loop asking for guesses while the game
+	// is NOT won and there are still tries remaining
+	while (!BCGame.IsGameWon() && BCGame.GetCurrentTry() <= MaxTries) // TODO change from FOR to WHILE loop
 	{ 
 		FText Guess = GetValidGuess();
 
@@ -66,20 +67,35 @@ void PlayGame()
 // loop continually until the user give a valid guess
 FText GetValidGuess()
 {
-	// get guess from player
-	int32 CurrentTry = BCGame.GetCurrentTry();
 	FText Guess = "";
-	std::cout << "Try " << CurrentTry << ". Enter your guess: ";
-	std::getline(std::cin, Guess);
-
-	EGuessStatus Status = BCGame.CheckGuessValidity(Guess);
-	switch (Status)
+	EGuessStatus Status = EGuessStatus::Invalid_Status;
+	do 
 	{
-	case EGuessStatus::Wrong_Length:
-		std::cout << "Please enter a " << BCGame.GetHiddenWordLength() << " letter word.\n";
-		break;
-	}
+		// get guess from player
+		int32 CurrentTry = BCGame.GetCurrentTry();
+		
+		std::cout << "Try " << CurrentTry << ". Enter your guess: ";
+		std::getline(std::cin, Guess);
 
+		Status = BCGame.CheckGuessValidity(Guess);
+		switch (Status)
+		{
+		case EGuessStatus::Wrong_Length:
+			std::cout << "Please enter a " << BCGame.GetHiddenWordLength() << " letter word.\n";
+			break;
+		case EGuessStatus::Not_Isogram:
+			std::cout << "Please enter a word with out repeating letters.\n";
+			break;
+		case EGuessStatus::Not_Lowcase:
+			std::cout << "Please use all lowercase in you guess.\n";
+			break;
+		default:
+			// assume guess is valid
+			break;
+		}
+		std::cout << std::endl;
+	} 
+	while (Status != EGuessStatus::OK); // keep looping till we get valid input
 	return Guess;
 }
 
