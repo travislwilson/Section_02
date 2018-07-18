@@ -23,7 +23,6 @@ enum EGuessStatus
 class FBullCowGame {
 public:
 
-
 	FBullCowGame(); // constructor
 	
 	int32 GetMaxTries() const;
