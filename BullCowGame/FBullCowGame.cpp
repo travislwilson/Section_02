@@ -1,4 +1,6 @@
 #include "FBullCowGame.h"
+#include <map>
+#define TMap std::map
 
 using FString = std::string; // set Unreal Namespace for strings
 using int32 = int; // set Unreal Namespace for int
@@ -24,13 +26,13 @@ void FBullCowGame::Reset()
 
 EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 {
-	if (false) // if the guess isn't an isogram
+	if (!IsIsogram(Guess)) // if the guess isn't an isogram
 	{
-		return EGuessStatus::Not_Isogram;
+		return EGuessStatus::Not_Isogram; // TODO write function
 	}
 	else if (false)// if the guess isn't all lowcase
 	{
-		return EGuessStatus::Not_Lowcase;
+		return EGuessStatus::Not_Lowcase; // TODO write function
 	} 
 	else if (Guess.length() != GetHiddenWordLength()) // if the guess length is wrong
 	{
@@ -84,5 +86,26 @@ FBullCowCount FBullCowGame::SubmitGuess(FString Guess)
 		}
 	}
 	return BullCowCount;
+}
+
+bool FBullCowGame::IsIsogram(FString Word) const
+{
+	// treat 0 and 1  words as isogram
+	if (Word.length() <= 1) { return true; }
+
+	TMap<char, bool>LetterSeen; // setup our map
+	for (auto Letter : Word) // for all letters of the word
+	{
+		Letter = tolower(Letter); // handle mixed case
+		if (LetterSeen[Letter]) // if the letter is in the map
+		{
+			return false; // we do NOT have an isogram
+		}
+		else
+		{
+			LetterSeen[Letter] = true; // add the letter to the map as seen
+		}
+	}
+	return true; // for example in cases where /0 is entered
 }
 

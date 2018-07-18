@@ -22,6 +22,8 @@ enum EGuessStatus
 
 class FBullCowGame {
 public:
+
+
 	FBullCowGame(); // constructor
 	
 	int32 GetMaxTries() const;
@@ -40,4 +42,6 @@ private:
 	int32 MyMaxTries;
 	FString MyHiddenWord;
 	bool bGameIsWon;
+
+	bool IsIsogram(FString) const;
 };
